@@ -1,0 +1,17 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - config
+        - tests
+    # bootstrapFiles:
+    #     - vendor/autoload.php # Uncomment if needed, but usually not for simple libraries
+
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon # Optional: for stricter rules
+    - vendor/larastan/larastan/extension.neon # Add if we want Laravel-specific analysis
+    - vendor/phpstan/phpstan-phpunit/extension.neon # Add when PHPUnit tests are in place
+
+# Optional: Exclude specific error messages if necessary (use sparingly)
+# ignoreErrors:
+#     - '#PHPDoc tag @var with type array is not subtype of native type string#'

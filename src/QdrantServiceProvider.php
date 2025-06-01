@@ -1,4 +1,5 @@
 <?php
+
 namespace Vinothkumar\Qdrant;
 
 use Illuminate\Support\ServiceProvider;
