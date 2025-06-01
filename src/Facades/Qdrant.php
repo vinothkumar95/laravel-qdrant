@@ -1,4 +1,5 @@
 <?php
+
 namespace Vinothkumar\Qdrant\Facades;
 
 use Illuminate\Support\Facades\Facade;

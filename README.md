@@ -1,6 +1,12 @@
 # Laravel Qdrant
 
-A Laravel-friendly wrapper for the Qdrant vector database. This package allows you to interact with Qdrant v2 API easily using a Laravel-style API.
+A Laravel-friendly wrapper for the Qdrant vector database. This package allows you to interact with Qdrant API easily using a Laravel-style API.
+
+## Requirements
+
+- PHP `^8.2`
+- Guzzle `^7.8.0` (version `7.9.3` installed)
+- Symfony UID `^7.3`
 
 ## Installation
 
@@ -8,22 +14,32 @@ A Laravel-friendly wrapper for the Qdrant vector database. This package allows y
 composer require vinothkumar/laravel-qdrant
 ```
 
+For modern Laravel versions (5.5+), the service provider and facade are auto-discovered. You typically do not need to manually add them to your `config/app.php`.
+
 ## Configuration
 
 Publish the config file:
 
 ```bash
-php artisan vendor:publish --tag=config
+php artisan vendor:publish --provider="Vinothkumar\Qdrant\QdrantServiceProvider" --tag="config"
 ```
 
-Set your Qdrant configuration in your `.env` file:
+This will publish a `qdrant.php` file to your `config` directory. Set your Qdrant configuration in your `.env` file:
 
-```
+```env
 QDRANT_HOST=http://localhost:6333
-QDRANT_API_KEY=your_api_key_if_needed
+QDRANT_API_KEY=your_api_key_here
+QDRANT_TIMEOUT=30
 ```
+
+Available configuration options:
+- `host`: The URL of your Qdrant instance (e.g., `http://localhost:6333`).
+- `api_key`: Your Qdrant API key, if required (optional, defaults to `null`).
+- `timeout`: Request timeout in seconds for Guzzle client (optional, defaults to `10`).
 
 ## Usage
+
+You can use the `Qdrant` facade or inject the `Vinothkumar\Qdrant\Services\QdrantService` class where needed.
 
 ### Collection Management
 
@@ -113,8 +129,8 @@ $count = Qdrant::count('products');
 // Count with filter
 $count = Qdrant::count('products', [
     'must' => [
-        ['key' => 'category', 'match' => ['value' => 'Electronics']]
-    ]
+        ['key' => 'category', 'match' => ['value' => 'Electronics']],
+    ],
 ]);
 ```
 
@@ -127,6 +143,25 @@ Qdrant::createFieldIndex('products', 'category', 'keyword');
 // Delete a field index
 Qdrant::deleteFieldIndex('products', 'category');
 ```
+
+## Development & Contributing
+
+This project uses several tools to ensure code quality and consistency.
+
+### Available Composer Scripts
+
+-   `composer test`: Runs the PHPUnit test suite.
+-   `composer lint`: Checks for PHP coding standards issues using PHP-CS-Fixer (dry run with diff).
+-   `composer format`: Automatically fixes PHP coding standards issues using PHP-CS-Fixer.
+-   `composer analyse`: Performs static analysis using PHPStan to find potential bugs.
+
+### Tools
+
+-   **PHPUnit**: For unit and integration testing.
+-   **PHP-CS-Fixer**: For enforcing coding standards. Configuration is in `.php-cs-fixer.dist.php`.
+-   **PHPStan**: For static code analysis. Configuration is in `phpstan.neon.dist`.
+
+Contributions are welcome! Please ensure your code adheres to the coding standards and that all tests pass.
 
 ## License
 
