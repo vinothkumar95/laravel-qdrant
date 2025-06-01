@@ -1,0 +1,28 @@
+{
+  "name": "vinothkumar/laravel-qdrant",
+  "description": "A Laravel-friendly wrapper for Qdrant vector DB",
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.0",
+  "autoload": {
+    "psr-4": {
+      "Vinothkumar\\Qdrant\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vinothkumar\\Qdrant\\QdrantServiceProvider"
+      ],
+      "aliases": {
+        "Qdrant": "Vinothkumar\\Qdrant\\Facades\\Qdrant"
+      }
+    }
+  },
+  "require": {
+    "php": "^8.1",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
